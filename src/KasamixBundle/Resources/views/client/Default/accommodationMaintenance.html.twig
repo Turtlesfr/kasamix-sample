@@ -1,0 +1,21 @@
+{% trans_default_domain 'KasamixBundle' %}
+{% set currentUrlName = app.request.attributes.get('_route') %}
+{% extends '@Kasamix/base-client-index.html.twig' %}
+{% block title %}{{'page_title.client.maintenance'|trans}}{% endblock %}
+{% block content %}
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-sm-12">
+				<div class="container">
+					<div class="row">
+						<div class="col-sm-12">
+							<p>{{ 'client.dashboard.accommodation_in_maintenance'|trans }}</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}{# block content #}
+{% block javascript %}
+{% endblock %}

@@ -1,0 +1,40 @@
+{ extends '@Kasamix/base-client.html.twig' }
+{% trans_default_domain 'KasamixBundle' %}
+
+{% block content %}
+    <h1>Rooms list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Homeid</th>
+                <th>Roommodel</th>
+                <th>Configurable</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for room in rooms %}
+            <tr>
+                <td><a href="{{ path('room_show', { 'id': room.id }) }}">{{ room.id }}</a></td>
+                <td>{{ room.name }}</td>
+                <td>{{ room.homeId }}</td>
+                <td>{{ room.roomModel }}</td>
+                <td>{% if room.configurable %}Yes{% else %}No{% endif %}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('room_show', { 'id': room.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('room_edit', { 'id': room.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

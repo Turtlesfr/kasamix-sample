@@ -1,0 +1,56 @@
+client_dashboard:
+    path:     /
+    defaults: { _controller: "KasamixBundle:Client/ClientDashboard:index" }
+
+client_room:
+    resource: "@KasamixBundle/Resources/config/client/room.yml"
+    prefix:   "/room"
+
+client_room_config:
+    path:     "/config/{roommodelid}-{roomid}"
+    defaults: 
+      _controller: "KasamixBundle:Client/ClientRoom:config" 
+    methods: GET
+
+client_validation:
+    path:     /validation
+    defaults: { _controller: "KasamixBundle:Client/ClientValidation:index" }
+
+client_confirmation:
+    path:     /confirm
+    defaults: { _controller: "KasamixBundle:Client/ClientValidation:confirm" }
+
+surface_update_ajax:
+    path:     /surface-update
+    defaults: { _controller: "KasamixBundle:Client/ClientRoom:ajaxUpdateSurface" }
+    methods:  [POST]
+
+surface_price_update_ajax:
+    path:     /surface-price-update
+    defaults: { _controller: "KasamixBundle:Client/ClientRoom:ajaxUpdateSurfacePrice" }
+    methods:  [POST]
+
+load_covering:
+    path:     /load-covering
+    defaults: { _controller: "KasamixBundle:Client/ClientRoom:getCovering" }
+    methods:  [POST]
+
+load_surface_price:
+    path:     /load-surface-price
+    defaults: { _controller: "KasamixBundle:Client/ClientDashboard:getSurfacePrice" }
+    methods:  [POST]
+
+accommodation_status_update_ajax:
+    path:     /validate-my-accommodation
+    defaults: { _controller: "KasamixBundle:Client/ClientDashboard:ajaxValidateAccommodation"}
+    methods:  [POST]
+
+accommodation_informations_validation_ajax:
+    path:     /accommodation-status-update
+    defaults: { _controller: "KasamixBundle:Client/ClientDashboard:ajaxAccommodationInformationsValidation" }
+    methods:  [POST]
+
+send_form_accommodation:
+    path:     /send-form-accommodation
+    defaults: { _controller: "KasamixBundle:Client/ClientDashboard:sendEmailAboutAccommodation" }
+    methods:  [POST]

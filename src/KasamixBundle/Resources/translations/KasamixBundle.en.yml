@@ -1,0 +1,401 @@
+error:
+    404_page:
+        title: "Oups"
+        content: "It looks like you just found nothing"
+
+group:
+    edit:
+        submit: 'Update group'
+    show:
+        name: 'Group name'
+    new:
+        submit: 'Create group'
+    flash:
+        updated: 'The group has been updated.'
+        created: 'The group has been created.'
+        deleted: 'The group has been deleted.'
+
+button:
+    create: "Create"
+    show: "Show"
+    edit: "Edit"
+    delete: "Delete"
+
+security:
+    login:
+        title: "Your accommodation, your style"
+        baseline: "Get ready to customize your accommodation"
+        username: "Username"
+        password: "Password"
+        remember_me: 'Remember me'
+        submit: 'Log in'
+        username_placeholder: "Email"
+        lost_password: "Lost password ?"
+        password_placeholder: "Password"
+
+profile:
+    show:
+        username: "Username"
+        email: "Email"
+        gender:
+            title: "Gender"
+            miss: "Miss"
+            mister: "Mister"
+            madam: "Madam"
+        fullName: "Name"
+        firstName: "First Name"
+        lastName: "Last Name"
+        address1: "Address 1"
+        address2: "Address 2"
+        zip: "Zip Code"
+        city: "City"
+        country: "Country"
+        phone: "Phone"
+        cellPhone: "Cell Phone"
+        company: "Company"
+        job: "Job"
+        comment: "Comment"
+        group: "Group"
+        enabled: "Authorization enabled ?"
+        lastLogin: "Last login"
+        role: "Role"
+        no_companies: "No related companies"
+        companies: "Company"
+        companies_choice: "Make a choice"
+        status:
+            disabled: "Disabled"
+            enabled: "Enabled"
+
+    roles:
+        ROLE_USER: "USER"
+        ROLE_CLIENT: "CLIENT"
+        ROLE_PROMOTOR: "PROMOTOR"
+        ROLE_COMMERCIAL: "COMMERCIAL"
+        ROLE_ADVERTISER: "ADVERTISER"
+        ROLE_ADMIN: "ADMIN"
+        ROLE_SUPER_ADMIN: "SUPER_ADMIN"
+
+    edit:
+        submit: Update
+    flash:
+        updated: 'The profile has been updated.'
+
+change_password:
+    submit: 'Enregistrer'
+    flash:
+        success: 'Le mot de passe a été modifié avec succès.'
+
+registration:
+    check_email: |
+        An email has been sent to %email%. It contains an activation link you must click to activate your account.
+    confirmed: 'Congrats %username%, your account is now activated.'
+    back: 'Back to the originating page.'
+    submit: Register
+    flash:
+        user_created: 'The user has been created successfully.'
+    email:
+        subject: 'Welcome %username% !'
+        message: |
+            Hello %username%!
+
+            To finish activating your account - please visit %confirmationUrl%
+
+            This link can only be used once to validate your account.
+
+            Regards,
+            the Team.
+
+resetting:
+    check_email: |
+        An email has been sent. It contains a link you must click to reset your password.
+        Note: You can only request a new password once within %tokenLifetime% hours.
+
+        If you don't get an email check your spam folder or try again.
+    request:
+        username: 'Enter your email address'
+        submit: 'Reset password'
+    reset:
+        submit: 'Change password'
+    flash:
+        success: 'The password has been successfully reseted.'
+    email:
+        subject: 'Reset Password'
+        message: |
+            Hello %firstName% !
+
+            To reset your password - please visit %confirmationUrl%
+
+            Regards,
+            the Team.
+
+# Global strings
+layout:
+    logout: 'Log out'
+    login: 'Log in'
+    register: "Register"
+    logged_in_as: 'Logged in as %username%'
+
+form:
+    group_name: 'Group name'
+    username: "Username"
+    email: "Email"
+    current_password: 'Current password'
+    password: "Password"
+    password_confirmation: 'Repeat password'
+    new_password: 'New password'
+    new_password_confirmation: 'Repeat new password'
+    add_user: "Add user"
+    user:
+        delte_title: "Delete"
+        delte_message: "Are you sure you want to delete this user ?"
+        update: 'Update user'
+        button_delete: 'Delete user'
+    filter: 
+        users: "Filter users"
+
+company:
+    row:
+        id: "Id"
+        name: "Name"
+        address1: "Address1"
+        address2: "Address2"
+        zip: "Zip"
+        country: "Country"
+        city: "City"
+        registrationNumber: "Registration Number"
+        vat: "VAT"
+        email: "Email"
+        phone: "Phone"
+        companyType: "Company Type"
+        actions: "Actions"
+        color: "Color"
+        logo: "Logo"
+        users: "Attached users"
+        projects: "projects"
+        accom: "accom"
+        clients: "clients"
+        accom_w_client: "accom_w_client"
+    type:
+        promotor: "Promotor"
+        providers: "Providers"
+        fitters: "Fitters"
+        other: "Other"
+    form:
+        delte_title: "Delete"
+        delte_message: "delte_message"
+users:
+    save:
+        success: "all good"
+demo:
+    loggedAs: "You login as: "
+    accessLevel: "Your current access level: "
+
+breadcrumbs:
+    company:
+        create:  "Create"
+        update:  "Update"
+        index: "Companies"
+    user:
+        create:  "Create"
+        update:  "Update"
+        index: "Users"
+    product:
+        index: "Products"
+        edit: "Product edit"
+    covering:
+        index: "Covering"
+        create: "New covering"
+        edit: "Covering edit"
+    room_model:
+        index: "Room models"
+        edit: "Edit room model"
+        create: "Add room model"
+    room_type:
+        index: "Room types"
+        edit: "Edit room type"
+        create: "Add room type"
+    project:
+        index: "Projects list"
+        edit: "Edit project"
+        new: "Add project"
+    accommodation:
+        projects: "Projects"
+        project: "Project"
+        edit:
+            title: "Accommodation"
+            projects: "Projects"
+            project: "Project"
+            edit_title: "Edit accommodation"
+        new: "New accommodation"
+    logistic:
+        edit: "Edit logistic"
+
+
+back_to_list: "Back to the list"
+
+product:
+    form:
+        title: "Title"
+        reference: "Reference"
+        factoryReference: "Factory Reference"
+        additionalPrice: "Additional Price"
+        square: "Square"
+        covering: "Covering"
+        thumb: "Thumb"
+        name: "Name"
+        uses: "Uses"
+        description: "Description"
+        createdAt: "Created At"
+        create_cover: "Create new covering"
+        action:
+            title: "Action"
+            edit: "Edit"
+            delete: "Delete"
+        success:
+            create: "Product created"
+            create_covering: "Product and Covering created"
+    remove:
+        modal: "Do you want to delete <strong>permanently</strong> %s %s ?"
+
+covering:
+    form:
+        title: "Title"
+        reference: "Reference"
+        factoryReference: "Factory Reference"
+        additionalPrice: "Additional Price"
+        square: "Square"
+        covering: "Covering"
+        thumb: "Thumb"
+        name: "Name"
+        uses: "Uses"
+        description: "Description"
+        createdAt: "Created At"
+        product: "Product"
+        percentage: "Covering"
+        delte_title: "Delete"
+        laying:
+            title: "Laying"
+            regular: "Regular"
+            diagonal: "Diagonal"
+        action:
+            title: Action
+            edit: Edit
+            delete: Delete
+    remove:
+        modal: "Do you want to delete <strong>permanently</strong> the covering %s %s ?"
+
+room_model:
+    duplicate: "Duplicate"
+    remove:
+        modal: "Do you want to delete <strong>permanently</strong> the room model %s?"
+    covering:
+        reference: "Covering reference"
+        reference_placeholder: "Covering reference"
+        price: "price"
+        price_placeholder: "price_placeholder"
+        image: "image"
+        image_placeholder: "image_placeholder"
+    form:
+        title: "Title"
+        type: "Type"
+
+room_type:
+    remove:
+        modal: "Do you want to delete <strong>permanently</strong> the room type %s?"
+
+surface:
+    form:
+        title: "Title"
+        title_placeholder: "Set title"
+project:
+    form:
+        showPriceLabel: "Display (additional) prices on client side"
+        showPriceYes: "Yes"
+        showPriceNo: "No"
+        showSlaveRoomsOnDashboard: "Show slave rooms on dashboard"
+        showSlaveRoomsOnDashboardNo: "No"
+        showSlaveRoomsOnDashboardYes: "Yes"
+        showSlaveRoomsOnValidation: "Show slave rooms on validation"
+        showSlaveRoomsOnValidationNo: "No"
+        showSlaveRoomsOnValidationYes: "Yes"
+        status: "Status"
+    remove:
+        modal: "Are you sure you want to delete this project ?"
+    status:
+        study: "Study"
+        ongoing: "Ongoing"
+        finished: "Finished"
+        canceled: "Canceled"
+
+accommodation:
+    remove:
+        modal: "Are you sure you want to delete this accommodation ?"
+    status:
+        nonvalidated: "Non validated"
+        validated: "Validated"
+        maintenance: "Maintenance"
+        built: "Built"
+
+client:
+    menu:
+        dashboard: "Dashboard"
+    common:
+        no_accommodation: |
+            Your account does not seem to be linked to any accommodation. Sorry for this inconvenience.
+            Please contact %emailAdmin% for more details.
+
+            <a href="%LogOut%">Log out</a>
+
+    dashboard:
+        accommodation_in_maintenance: "This accommodation is in maintenance. Please come back later."
+        accommodation_built: "This accommodation has been built and is no longer available here."
+        setup:
+            title: "Time to set up your future accommodation"
+        is_setup:
+            title: "You just have to wait now"
+        choices_validated:
+            title: "You have already validated your choices"
+            content: "You won't be able to make any change now but you can still visualize your choices until your accommodation is built."
+        explanations:
+            title: "How does it work ?"
+            content: "Configure each room with your prefered materials. Then, <a href='%validateUrl%' title='Validate your choices'>validate your choices</a>"
+        time:
+            title: "{0}This is your last day !|{1}You have 1 day left|]1,Inf]You have %count% days left"
+            content: "After that, your current choices will be automatically validated."
+        balance:
+            title: "Your balance"
+            is_positive: "Some of your selections are premium products and your balance has a total of "
+            is_null: "Some materials can be premium and carry an extra cost. If you choose some, you will see the balance here."
+        validation:
+            incentive: "Whenever you are ready, validate your choices"
+            button: "Validate my choices"
+        button:
+            visualize: "Visualize"
+            customize: "Customize"
+        room_non_configurable: "This room is not configurable separately from the others"
+        material_total: "Total of materials : "
+    
+    config:
+        button:
+            save_selection: "Save my selection"
+            modify_surface: "Change"
+            close: "Close"
+        save_success: "Your material selection has been successfully saved !"
+
+    validation:
+        greetings:
+            title: "Congratulations !"
+            content: "You have validated your choices. You will now be redirected to the dashboard in a few seconds."
+        warning: "You are about to validate your choices. There is no return so please carefully review your choices."
+        positive_balance: "Some of your choices have an extra price. Payment of your balance will be asked later by mail."
+        balance_due: "Balance due"
+        after_infos: "Once your choices validated, you won't be able to change them but you will be able to visualize your accommodation"
+        material_total: "Total of materials : "
+        modalTitle: 'Are you sure ?'
+    confirmation:
+        warning:  "En cliquant sur Valider tous vos choix seront définitifs et vous ne pourrez plus les modifier ultérieurement. Si vous n'êtes pas sûr de vos choix, ne validez pas tout de suite."
+        link: |
+                    I understand and <br/><a href="%transLink%" title="Validate" class="btn btn-primary btn-lg client-button client-button-validate">I validate my choices</a>
+
+user:
+    no_rights: "Your account has no rights"

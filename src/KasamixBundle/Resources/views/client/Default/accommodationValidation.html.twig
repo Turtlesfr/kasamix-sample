@@ -1,0 +1,94 @@
+{% trans_default_domain 'KasamixBundle' %}
+{% set currentUrlName = app.request.attributes.get('_route') %}
+{% extends '@Kasamix/base-client-index.html.twig' %}
+{% block title %}{{'page_title.client.accommodation_validation'|trans}}{% endblock %}
+{% block content %}
+	<div class="Modal-Background toggle-Modal is-Hidden">
+		<div class="validated Center-Block Absolute-Center is-Fixed is-Variable Modal">
+			<div class="Center-Content">
+				<h2> </h2>
+				<p> </p>
+				<p id="count"> </p>
+			</div>
+		</div>
+	</div>
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-xs-12 col-md-6 col-md-offset-3">
+				<div class="row">
+					<div class="col-md-12">
+						<h1 style="margin-bottom:30px">{{ 'client.accommodation_validation.welcome'|trans }}</h1>
+						{{ 'client.accommodation_validation.explanation'|trans|raw }}
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="container-fluid check-infos">
+		<div class="row">
+			<div class="col-xs-12 col-md-6 col-md-offset-3">
+				<h3>{{ 'client.accommodation_validation.check_title'|trans }}</h3>
+
+				<div class="checkbox">
+					<label class="checkbox-validate"><input type="checkbox" value="">{{ 'client.accommodation_validation.full_name'|trans }} : <b>{{ app.user.firstName }} {{ app.user.lastName }}</b></label>
+				</div>
+				<div class="checkbox">
+					<label class="checkbox-validate"><input type="checkbox" value="">{{ 'client.accommodation_validation.accommodation_type'|trans }} : <b>{{ app.user.acommodation.accommodationType.name }}</b></label>
+				</div>
+				<div class="checkbox">
+					<label class="checkbox-validate"><input type="checkbox" value="">{{ 'client.accommodation_validation.accommodation_name_or_number'|trans }} : <b>{{ app.user.acommodation.name }}</b></label>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-12 col-md-6 col-md-offset-3">
+				{{ 'client.accommodation_validation.validation_warning'|trans|raw }}
+			</div>
+		</div>
+		<div class="row ">
+			<div class="col-xs-12 col-md-6 col-md-offset-3">
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-12 col-md-6 col-md-offset-3">
+
+				<button type="submit" class="btn btn-primary client-button-accept pull-right">{{ 'client.accommodation_validation.button_validate'|trans }}</button>
+				<button type="submit" class="btn btn-danger client-button-refuse pull-right" style="margin-right: 7px">{{ 'client.accommodation_validation.button_something_wrong'|trans }}</button>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-12 col-md-6 col-md-offset-3">
+				<div class="form-wrong">
+					<h3>{{ 'client.accommodation_validation.title_wrong'|trans }}</h3>
+					<p>{{ 'client.accommodation_validation.content_wrong'|trans }}</p>
+					<form id="form">
+						<input type="hidden" name="userEmail" value="{{app.user.email}}">
+						<input type="hidden" name="userId" value="{{app.user.id}}">
+						<div class="form-group">
+							<textarea class="form-control" id="message" rows="5">
+{{ 'client.accommodation_validation.full_name'|trans }} {{ app.user.firstName }} {{ app.user.lastName }}
+{{ 'client.accommodation_validation.accommodation_type'|trans }} : {{ app.user.acommodation.accommodationType.name }}
+{{ 'client.accommodation_validation.accommodation_name_or_number'|trans }} : {{ app.user.acommodation.name }}</textarea>
+							<button type="submit" class="btn btn-primary pull-right">{{ 'client.accommodation_validation.button_send'|trans }}</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}{# block content #}
+{% block javascript %}
+	<script>
+		var modalTitleValid = "{{ 'client.accommodation_validation.modalTitleValid'|trans }}";
+		var modalTitleWrong = "{{ 'client.accommodation_validation.modalTitleWrong'|trans }}";
+		var modalContentValid = "{{ 'client.accommodation_validation.modalContentValid'|trans }}";
+		var modalContentWrong = "{{ 'client.accommodation_validation.modalContentWrong'|trans }}";
+		var accommodationId = "{{ app.user.acommodation.id }}";
+		var userId = {{ app.user.id }};
+		var dashboardUrl = "{{ path('client_dashboard') }}";
+		var formUrl = "{{ path('send_form_accommodation') }}";
+		var validateAccommodationInformationsUrl = "{{ path('accommodation_informations_validation_ajax') }}";
+		var setAccommodationStatusUrl = "{{ path('accommodation_status_update_ajax') }}";
+	</script>
+	<script src="{{ asset('bundles/kasamixbundle/js/client/client.accommodationInformations.js') }}"></script>
+{% endblock %}

@@ -1,0 +1,105 @@
+{% trans_default_domain 'KasamixBundle' %}
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>{% block title %}{% endblock %}</title>
+    <meta name="description" content="Kasamix - 3D configurator">
+    <meta name="author" content="Kasamix">
+
+    <link rel="apple-touch-icon" sizes="57x57" href="{{ asset('bundles/kasamixbundle/favicon/apple-icon-57x57.png') }}">
+    <link rel="apple-touch-icon" sizes="60x60" href="{{ asset('bundles/kasamixbundle/favicon/apple-icon-60x60.png') }}">
+    <link rel="apple-touch-icon" sizes="72x72" href="{{ asset('bundles/kasamixbundle/favicon/apple-icon-72x72.png') }}">
+    <link rel="apple-touch-icon" sizes="76x76" href="{{ asset('bundles/kasamixbundle/favicon/apple-icon-76x76.png') }}">
+    <link rel="apple-touch-icon" sizes="114x114"
+          href="{{ asset('bundles/kasamixbundle/favicon/apple-icon-114x114.png') }}">
+    <link rel="apple-touch-icon" sizes="120x120"
+          href="{{ asset('bundles/kasamixbundle/favicon/apple-icon-120x120.png') }}">
+    <link rel="apple-touch-icon" sizes="144x144"
+          href="{{ asset('bundles/kasamixbundle/favicon/apple-icon-144x144.png') }}">
+    <link rel="apple-touch-icon" sizes="152x152"
+          href="{{ asset('bundles/kasamixbundle/favicon/apple-icon-152x152.png') }}">
+    <link rel="apple-touch-icon" sizes="180x180"
+          href="{{ asset('bundles/kasamixbundle/favicon/apple-icon-180x180.png') }}">
+    <link rel="icon" type="image/png" sizes="192x192"
+          href="{{ asset('bundles/kasamixbundle/favicon/android-icon-192x192.png') }}">
+    <link rel="icon" type="image/png" sizes="32x32"
+          href="{{ asset('bundles/kasamixbundle/favicon/favicon-32x32.png') }}">
+    <link rel="icon" type="image/png" sizes="96x96"
+          href="{{ asset('bundles/kasamixbundle/favicon/favicon-96x96.png') }}">
+    <link rel="icon" type="image/png" sizes="16x16"
+          href="{{ asset('bundles/kasamixbundle/favicon/favicon-16x16.png') }}">
+    <link rel="manifest" href="{{ asset('bundles/kasamixbundle/favicon/manifest.json') }}">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-TileImage" content="{{ asset('bundles/kasamixbundle/favicon/ms-icon-144x144.png') }}">
+    <meta name="theme-color" content="#ffffff">
+
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600" rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('bundles/kasamixbundle/css/all.min.css') }}">
+    <!--[if lt IE 9]
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js"></script>
+    <![endif]-->
+    <!--script src="js/jquery-3.2.1.min.js"></script-->
+    {% block defining_javascript %}{% endblock %}
+</head>
+<body>
+{% if app.user %}
+    {% include '@Kasamix/template_includes/left_navigation.html.twig' %}
+{% endif %}
+<div class="main">
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                {% include '@Kasamix/template_includes/flash_messages.html.twig' %}
+            </div>
+            <div class="col-md-12">
+                <div class="modal fade" id="compilationsList" tabindex="-1" role="dialog" aria-labelledby="compilationsList"
+                 aria-hidden="true">
+                <div class="modal-dialog compilation" style="width: 75%">
+                    <div class="modal-content">
+                    </div>
+                </div>
+            </div>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid">
+        <div class="row high">
+            <div class="col-sm-6">
+                {% block pageTitle %}{% endblock %}
+                {% block breadcrumbs %}{% endblock %}
+            </div>
+            <div class="col-sm-6">
+                {% block topRight %}{% endblock %}
+            </div>
+            
+        </div><!--row-->
+            {% block content %}{% endblock %}
+            {% block fos_user_content %}{% endblock %}
+    </div>
+</div>
+
+<script src="{{ asset('bundles/kasamixbundle/js/jquery.js') }}"></script>
+<!--script src="{{ asset('bundles/kasamixbundle/js/bootstrap.js') }}"></script-->
+<script type="text/javascript" src="https://cdn.datatables.net/v/bs/dt-1.10.16/datatables.min.js"></script>
+
+<script src="{{ asset('bundles/kasamixbundle/js/bootstrap.js') }}"></script>
+<!--script src="{{ asset('bundles/kasamixbundle/js/jquery.dataTables.js') }}"></script-->
+<script src="{{ asset('bundles/kasamixbundle/js/compilation/compilations.page.js') }}"></script>
+<script src="{{ asset('bundles/kasamixbundle/js/menu-admin.js') }}"></script>
+
+
+<script>
+    $(document).on('hidden.bs.modal', function (e) {
+        $(e.target).removeData('bs.modal');
+    });
+
+    compilationsPage.listUrl = "{{ path('list_of_compilations') }}";
+    compilationsPage.hideUrl = "{{ path('hide_compilation', {'id': 99999999}) }}";
+    compilationsPage.cancelUrl = "{{ path('cancel_compilation', {'id': 99999999}) }}";
+</script>
+{% block javascript %}{% endblock %}
+
+</body>

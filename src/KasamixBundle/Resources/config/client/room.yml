@@ -1,0 +1,18 @@
+room_index:
+    path:     /
+    defaults: { _controller: "KasamixBundle:Client/ClientRoom:index" }
+    methods:  GET
+
+#room_list:
+#    path:     /list/{id}
+#    defaults: { _controller: "KasamixBundle:Client/Room:getList" }
+#    methods:  GET
+
+#room_list:
+#    path:     /l
+#    defaults: { _controller: "KasamixBundle:Client/ClientRoom:renderList" }
+#    methods:  GET
+
+rooms_inside_accommodation:
+    path: /p
+    defaults: { _controller: "KasamixBundle:Client/ClientRoom:renderList" }

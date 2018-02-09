@@ -1,0 +1,32 @@
+profile:
+    error:
+        email:
+            blank: "Email obligatoire"
+        company: "Nom d'entreprise obligatoire"
+#        job: Job title required
+        firstName: "Renseignez un nom"
+        lastName: "Renseignez un prénom"
+        changePassword: "Mot de passe non changé"
+        password:
+            minLength: "Le mot de passe doit faire au moins 8 caractères"
+            requirements: "Le mot de passe doit contenir au moins une lettre majuscule et un chiffre"
+
+company:
+    error:
+        name: "Nom d'entreprise obligatoire"
+        email:
+            blank: "Email obligatoire"
+            format: "Email incorrect"
+        type: "Type d'entreprise requis"
+        remove:
+            hasUser: "Impossible de supprimer l'entreprise car au moins une personne y est rattaché"
+        form:
+            general: "Merci de vérifier les erreurs du formulaire"
+
+product:
+    error:
+        form:
+            reference: "Ce nom est déjà utilisé"
+            image:
+                mimetype: "JPEG seulement"
+                imageSize: "L'image doit faire 600*360px"

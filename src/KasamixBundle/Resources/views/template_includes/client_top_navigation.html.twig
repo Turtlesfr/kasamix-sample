@@ -1,0 +1,5 @@
+{% trans_default_domain 'KasamixBundle' %}
+{% set currentUrlName = app.request.attributes.get('_route') %}
+{% if app.user.acommodation is not null %}
+	<a href="{{ path('client_dashboard') }}" class="btn-dashboard">{# 'client.menu.dashboard'|trans #}</a>
+{% endif %}

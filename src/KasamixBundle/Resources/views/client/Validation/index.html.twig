@@ -1,0 +1,183 @@
+{% trans_default_domain 'KasamixBundle' %}
+{% set currentUrlName = app.request.attributes.get('_route') %}
+{% extends '@Kasamix/base-client.html.twig' %}
+{% block title %}{{'page_title.client.validation.index'|trans}}{% endblock %}
+{% block content %}
+
+	<div class="Modal-Background toggle-Modal is-Hidden">
+		<div class="validated Center-Block Absolute-Center is-Fixed is-Variable Modal">
+			<div class="Center-Content">
+				<h2>{{ 'client.validation.greetings.title'|trans }}</h2>
+				<p>{{ 'client.validation.greetings.content'|trans }}</p>
+				<p id="count"></p>
+				<a href="#" title="Cancel" class="btn btn-cancel btn-lg choice-validation-no is-Hidden">No</a>
+				<a href="#" title="Validate" class="btn btn-primary btn-lg choice-validation-yes is-Hidden">Yes</a>
+			</div>
+		</div>
+	</div>
+	<div class="page-client-validation">
+		<div class="client-container-validation-top-wrapper">
+			<div class="container client-container-dashboard-top">
+				<div class="row">
+					<div class="col-sm-12 col-md-12 col-lg-12">
+						<p>{{ 'client.validation.warning'|trans }}</p>
+					</div>
+				</div>
+					
+			</div><!-- client-container-dashboard-top -->
+		</div><!-- client-container-validation-top-wrapper -->
+			
+		<div class="client-container-validation-content-wrapper">
+			{% for room in app.user.acommodation.room %}
+				{% if room.surface|length != 0 %} {# don't print if room has no surface #}	
+					{% if room.configurable == 0 and app.user.acommodation.project.showSlaveRoomsOnValidation == 0 %}
+					{% else %}
+						<div class="client-room-container{% if room.configurable == 1 %} room-is-configurable{% endif %}" data-roomid="{{ room.id }}">
+							<div class="container">
+								<div class="row">
+									<div class="col-sm-8 col-md-8 col-lg-8">
+										{% if room.configurable == 0 %} {# ------------ ROOM IS NOT CONFIGURABLE ------------- #}
+											<div class="row">
+												<div class="col-sm-12 col-md-12 col-lg-12" style="text-align: center;">
+													
+												</div>
+											</div><!--row-->
+											<div class="row">
+												{% for surface in room.surface %}
+													{% if surface.masterSurfaceId %}{# there is a master surface. We check if it has a selected covering or default #}
+														{% if surface.masterSurfaceId.selectedCoveringId %}
+															{% set selectedCoveringId = surface.masterSurfaceId.selectedCoveringId.id %}
+															{% for surfaceCovering in surface.masterSurfaceId.surfaceModelId.surfaceModelHasCovering %}
+																{% if surfaceCovering.covering.id == selectedCoveringId %}
+																	{% set selectedCoveringPrice = surfaceCovering.additionalPrice %}
+																	{% set surfacePrice = selectedCoveringPrice * surface.squareMeter %}
+																	<div class="col-xs-{% if room.surface|length == 1 %}12{%else%}6{%endif%} col-sm-6 col-md-6 col-lg-6{% if room.surface|length == 1 %} col-sm-offset-3 col-md-offset-3 col-lg-offset-3{% endif %} client-surface-item" data-surface-id="{{ surface.id }}">
+																		<div class="client-surface-thumbnail-container">
+										        							<img src="{{ asset("upload/covering/") ~ surface.masterSurfaceId.selectedCoveringId.id ~ "/" ~ surface.masterSurfaceId.selectedCoveringId.thumb  }}">
+										        						</div>
+												        				<p class="client-product-name">{{ surface.masterSurfaceId.selectedCoveringId.title }}</p>
+												        				<p class="client-product-description hidden-xs">{{ surface.masterSurfaceId.selectedCoveringId.description }}</p>
+																	</div><!-- col-sm surface -->
+																{% endif %}
+															{% endfor %}
+														{% else %} {# Master surface has no selected covering ==> Check default #}
+															<!--p>Is slave of surface n°{{ surface.masterSurfaceId.id }}</p-->
+											        		<!--p>{{ surface.masterSurfaceId.surfaceModelId.title }}</p-->
+											        		{% for surfaceCovering in surface.masterSurfaceId.surfaceModelId.surfaceModelHasCovering %}
+											        			{% if surfaceCovering.isDefault == true %}
+											        				<div class="col-xs-{% if room.surface|length == 1 %}12{%else%}6{%endif%} col-sm-6 col-md-6 col-lg-6{% if room.surface|length == 1 %} col-sm-offset-3 col-md-offset-3 col-lg-offset-3{% endif %} client-surface-item">
+											        					<div class="client-surface-thumbnail-container">
+										        							<img src="{{ asset("upload/covering/") ~ surfaceCovering.covering.id ~ "/" ~ surfaceCovering.covering.thumb  }}">
+										        						</div>
+											        					<p class="client-product-name">{{ surfaceCovering.covering.title }}</p>
+											        					<p class="client-product-description hidden-xs hideme">{{ surfaceCovering.covering.description }}</p>
+											        					<!--p>Price = {{ surfaceCovering.additionalPrice|number_format(2, '.', ',') }} €/m²</p>
+											        					<p>Surface size = {{ surface.squareMeter }}</p-->
+											        				</div>
+											        			{% endif %}
+											        		{% endfor %}
+														{% endif %}				        		
+										        		
+										        	{% endif %}
+												{% endfor %}		
+											</div><!--row-->
+										{% else %}                     {# ------------ ROOM IS CONFIGURABLE ------------- #}
+											<div class="row">
+												{% for surface in room.surface %}
+													{% if surface.selectedCoveringId %}
+														{% set selectedCoveringId = surface.selectedCoveringId.id %}
+														{% for surfaceCovering in surface.surfaceModelId.surfaceModelHasCovering %}
+															{% if surfaceCovering.covering.id == selectedCoveringId %}
+																{% set selectedCoveringPrice = surfaceCovering.additionalPrice %}
+																{% set surfacePrice = selectedCoveringPrice * surface.squareMeter %}
+																<div class="col-xs-{% if room.surface|length == 1 %}12{%else%}6{%endif%} col-sm-6 col-md-6 col-lg-6 {% if room.surface|length == 1 %} col-sm-offset-3 col-md-offset-3 col-lg-offset-3{% endif %} client-surface-item" data-surface-id="{{ surface.id }}">
+																	<div class="client-surface-thumbnail-container">
+									        							<img src="{{ asset("upload/covering/") ~ surface.selectedCoveringId.id ~ "/" ~ surface.selectedCoveringId.thumb  }}">
+									        						</div>
+											        				<p class="client-product-name">{{ surface.selectedCoveringId.title }}</p>
+											        				<p class="client-product-description hidden-xs">{{ surface.selectedCoveringId.description }}</p>
+																</div><!-- col-sm surface -->
+															{% endif %}
+														{% endfor %}
+													{% else %}
+														{% for surfaceCovering in surface.surfaceModelId.surfaceModelHasCovering %}
+											        		{% if surfaceCovering.isDefault == true %}
+																<div class="col-xs-{% if room.surface|length == 1 %}12{%else%}6{%endif%} col-sm-6 col-md-6 col-lg-6{% if room.surface|length == 1 %} col-sm-offset-3 col-md-offset-3 col-lg-offset-3{% endif %} client-surface-item" data-surface-id="{{ surface.id }}">
+																	<div class="client-surface-thumbnail-container">
+									        							<img src="{{ asset("upload/covering/") ~ surfaceCovering.covering.id ~ "/" ~ surfaceCovering.covering.thumb  }}">
+									        						</div>
+											        				<p class="client-product-name">{{ surfaceCovering.covering.title }}</p>
+											        				<p class="client-product-description hidden-xs">{{ surfaceCovering.covering.description }}</p>
+																</div><!-- col-sm surface -->
+															{% endif %}
+										        		{% endfor %}
+										        	{% endif %}	
+												{% endfor %}
+											</div><!--row-->
+										{% endif %}
+									</div>
+									<div class="col-sm-4 col-md-4 col-lg-4 room-infos" style="text-align: center">
+										<h2 class="client-room-title">{{ room.name }}</h2>
+										{% if app.user.acommodation.project.showPrice == 1 %}
+							        		<span class="client-room-price">
+							        			{{ 'client.validation.material_total'|trans }}<span class="client-room-price-value"></span>
+							        		</span>
+							        	{% endif %}
+									</div>
+								</div><!-- row -->
+							</div>
+						</div><!-- client-room-container -->
+					{% endif %}
+				{% endif %}
+			{% endfor %}
+			
+		</div><!-- client-container-dashboard-content-wrapper -->
+		{% if app.user.acommodation.project.showPrice == 1 %}
+			<div class="client-container-validation-price-wrapper">
+				<div class="container client-container-validation-top">
+					<div class="row">
+						<div class="col-sm-8 col-md-8 col-lg-8">
+							<p>{{ 'client.validation.positive_balance'|trans }}</p>
+						</div>
+						<div class="col-sm-4 col-md-4 col-lg-4">
+							<p>{{ 'client.validation.balance_due'|trans }}</p>
+							<span class="client-balance"></span>
+						</div>
+					</div>
+				</div>
+			</div>
+		{% endif %}
+		<div class="client-container-validation-bottom-wrapper">
+			<div class="container client-container-validation-top">
+				<div class="row">
+					<div class="col-sm-6 col-md-7 col-lg-8">
+						<p>{{ 'client.validation.after_infos'|trans }}</p>
+					</div>
+					<div class="col-sm-6 col-md-5 col-lg-4">
+						<p class="validation-block"><a href="{{ path('client_confirmation') }}" title="Validate" class="btn btn-primary btn-lg client-button client-button-validate">{{'client.validation.button.validate'|trans}}</a></p>
+					</div>
+				</div>
+					
+			</div><!-- client-container-validation-bottom -->
+		</div><!-- client-container-validation-bottom-wrapper -->
+		<div class="container container-footer">
+				<div class="row">
+					<div class="col-lg-12">
+						<a href="{{ path('fos_user_security_logout') }}">{{ 'layout.logout'|trans }}</a>
+					</div>
+				</div>
+			</div>
+	</div><!-- page-client-validation -->
+{% endblock %}{# block content #}
+
+{% block javascript %}
+	<script>
+		var modalTitleApprove = "{{ 'client.validation.modalTitle'|trans }}";
+		var modalContentApprove = "{{ 'client.validation.modalContent'|trans|raw }}";
+		var accommodationId = "{{ app.user.acommodation.id }}";
+		var setAccommodationStatusUrl = "{{ path('accommodation_status_update_ajax') }}";
+		var dashboardUrl = "{{ path('client_dashboard') }}";
+		var accoPrices = $.parseJSON({{accommodation_prices|json_encode|raw}});
+	</script>
+    <script src="{{ asset('bundles/kasamixbundle/js/client/client.validation.js') }}"></script>
+{% endblock %}

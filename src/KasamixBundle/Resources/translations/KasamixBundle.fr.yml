@@ -1,0 +1,809 @@
+error:
+    404_page:
+        title: "Zut"
+        content: "Cette page n'existe pas"
+
+group:
+    edit:
+        submit: "Mettre à jour le groupe"
+    show:
+        name: "Nom du groupe"
+    new:
+        submit: "Créer un groupe"
+    flash:
+        updated: "Le groupe a été mis à jour."
+        created: "Le groupe a été créé."
+        deleted: "Le groupe a été supprimé."
+
+button:
+    create: "Créer"
+    show: "Ouvrir"
+    edit: "Modifier"
+    delete: "Supprimer"
+    validate: "Valider"
+
+security:
+    login:
+        title: "Votre logement, votre style"
+        baseline: "Préparez-vous à configurer votre logement"
+        username: "Nom d'utilisateur"
+        password: "Mot de passe"
+        remember_me: "Se souvenir de moi"
+        submit: "Connexion"
+        username_placeholder: "Votre email"
+        lost_password: "Mot de passe perdu ?"
+        password_placeholder: "Mot de passe"
+
+profile:
+    show:
+        username: "Nom d'utilisateur"
+        email: "Email"
+        gender:
+            title: "Genre"
+            miss: "Mademoiselle"
+            mister: "Monsieur"
+            madam: "Madame"
+        fullName: "Nom complet"
+        firstName: "Prénom"
+        lastName: "Nom"
+        address1: "Adresse"
+        address2: "Complément d'adresse"
+        zip: "Code postal"
+        city: "Ville"
+        country: "Pays"
+        phone: "Téléphone"
+        cellPhone: "Portable"
+        company: "Entreprise"
+        job: "Profession"
+        comment: "Commentaire"
+        group: "Groupe"
+        enabled: "Compte activé ?"
+        lastLogin: "Dernière connexion"
+        role: "Role"
+        no_companies: "Pas d'entreprise liée"
+        companies: "Entreprise"
+        companies_choice: "Choisir"
+        status:
+            disabled: "Inactif"
+            enabled: "Actif"
+            hasapprovedaccommodation: "Oui"
+            hasnotapprovedaccommodation: "Non"
+        hasapprovedaccommodation: "Infos persos et du logement approuvées ?"
+        hasapprovedaccommodation_legend: "Ne concerne que les clients associés à un logement"
+
+
+    roles:
+        ROLE_USER: "USER"
+        ROLE_CLIENT: "CLIENT"
+        ROLE_PROMOTOR: "PROMOTOR"
+        ROLE_COMMERCIAL: "COMMERCIAL"
+        ROLE_ADVERTISER: "ADVERTISER"
+        ROLE_ADMIN: "ADMIN"
+        ROLE_SUPER_ADMIN: "SUPER_ADMIN"
+
+    edit:
+        submit: "Mettre à jour"
+    flash:
+        updated: "Le compte a été mis à jour avec succès"
+
+change_password:
+    submit: "Modifier mon mot de passe" 
+    flash:
+        success: "Votre mot de passe a été modifié avec succès"
+
+registration:
+    check_email: |
+        Un email vient d'être envoyé à %email%. Il contient un lien que vous devez cliquer pour activer votre compte.
+    confirmed: "Félicitation %username%, votre compte est maintenant activé."
+    back: "Retour à la page originale"
+    submit: "Enregistrer"
+    flash:
+        user_created: "L'utilisateur a été créé avec succès."
+    email:
+        subject: "Bienvenue %username% !"
+        message: |
+            Bonjour %username%!
+
+            Pour activer votre compte, merci de cliquer sur ce lien : %confirmationUrl%
+
+            Ce lien ne peut être utilisé qu'une seule fois.
+
+            Bien cordialement
+            L'équipe.
+
+resetting:
+    check_email: |
+        Un email a été envoyé. Il contient un lien pour recréer un nouveau mot de passe.
+        NB: vous ne pouvez demander un nouveau mot de passe que toutes les %tokenLifetime% heures.
+
+        Si vous ne recevez pas d'email, merci de vérifier dans vos spams ou de réessayer.
+    request:
+        username: "Adresse email"
+        submit: "Réinitialiser mon mot de passe"
+    reset:
+        submit: "Changer mon mot de passe"
+    flash:
+        success: "Votre mot de passe a été modifié avec succès."
+    email:
+        subject: "Réinitialiser votre mot de passe"
+        message: |
+            Bonjour %firstName% !
+
+            Pour réinitialiser votre mot de passe, merci de visiter le lien suivant : %confirmationUrl%
+
+            Bien cordialement
+            L'équipe.
+
+# Global strings
+layout:
+    logout: "Déconnexion"
+    login: "Connexion"
+    register: "Enregistrement"
+    logged_in_as: "Connecté en tant que %username%"
+
+form:
+    save_changes: "Sauvegarder"
+    filter:
+        users: "Filtrer"
+        products: "Filtrer"
+        coverings: "Filtrer"
+        room_model: "Filter par type de pièce"
+        companies: "Filtrer"
+        accommodations: "Filtrer par logement"
+    group_name: "Nom du groupe"
+    username: "Nom d'utilisateur"
+    email: "Email"
+    current_password: "Mot de passe actuel"
+    password: "Mot de passe"
+    password_confirmation: "Répéter le mot de passe"
+    new_password: "Nouveau mot de passe"
+    new_password_confirmation: "Répéter le mot de passe"
+    add_user: "Valider"
+    add_product: "Valider"
+    add_covering: "Valider"
+    add_room_model: "Valider"
+    add_room_type: "Valider"
+    add_room: "Valider"
+    add_project: "Valider"
+    add_company: "Valider"
+    user:
+        button_delete: "Supprimer l'utilisateur"
+        button_update: "Sauvegarder"
+        delte_title: "Supprimer"
+        delte_message: "Êtes-vous sur de vouloir supprimer cet utilisateur ?"
+    product:
+        button_delete: "Supprimer le produit"
+    covering:
+        button_delete: "Supprimer le covering"
+    room_type:
+        button_delete: "Supprimer le type de pièce"
+    room_model:
+        button_delete: "Supprimer le modèle de pièce"
+
+company:
+    row:
+        id: "Id"
+        name: "Raison sociale"
+        address1: "Adresse"
+        address2: "Complément d'adresse"
+        zip: "Code postal"
+        country: "Pays"
+        city: "Ville"
+        registrationNumber: "SIRET"
+        vat: "TVA intracommunautaire"
+        email: "Email"
+        phone: "Téléphone"
+        companyType: "Type d'entreprise"
+        actions: "Actions"
+        color: "Nom de CSS"
+        logo: "Logo"
+        users: "Utilisateurs liés"
+        projects: "Projets"
+        accom: "Logements"
+        clients: "Clients"
+        accom_w_client: "Logements avec client"
+    type:
+        promotor: "Promoteur"
+        providers: "Fournisseur"
+        fitters: "Poseur"
+        other: "Autre"
+    form:
+        delte_title: "Supprimer"
+        delte_message: "Supprimer l'entreprise ?"
+        delete_content: "Êtes-vous sûr de vouloir supprimer cette entreprise ?"
+    edit:
+        tab:
+            coordinates: "Coordonnées"
+            people: "Personnes"
+            projects: "Projets"
+    successfully:
+        modified:
+            "Entreprise mise à jour avec succès"
+    button:
+        delete: "Supprimer l'entreprise"
+users:
+    index:
+        title: "Utilisateurs"
+    button:
+        new: "Nouvel utilisateur"
+    new:
+        title: "Nouvel utilisateur"
+    edit:
+        title: "Modifier l'utilisateur"
+    save:
+        success: "Utilisateur mis à jour"
+products:
+    index:
+        title: "Produits"
+        count: "produits"
+    button:
+        new: "Nouveau produit"
+    new:
+        title: "Nouveau produit"
+    tab:
+        definition:
+            title: "Définition"
+        projects:
+            title: "Projets"
+coverings:
+    index:
+        title: "Coverings"
+        count: "coverings"
+    button:
+        new: "Nouveau covering"
+        add: "Ajouter"
+    new:
+        title: "Nouveau covering"
+    tab:
+        definition:
+            title: "Définition"
+        projects:
+            title: "Projets"
+
+demo:
+    loggedAs: "Vous êtes connecté en tant que "
+    accessLevel: "Votre access level : "
+
+breadcrumbs:
+    company:
+        create:  "Créer"
+        update:  "Mettre à jour"
+        index:   "Entreprises"
+        update: "Modifier l'entreprise"
+    user:
+        create:  "Nouvel utilisateur"
+        update:  "Modifier l'utilisateur"
+        index: "Utilisateurs"
+    product:
+        index: "Produits"
+        edit: "Modifier"
+        create: "Nouveau produit"
+        update: "Modifier le produit"
+    covering:
+        index: "Coverings"
+        create: "Nouveau covering"
+        edit: "Modifier"
+        update: "Modifier le covering"
+    room_model:
+        index: "Modèles de pièces"
+        edit: "Modifier"
+        create: "Créer"
+        update: "Modifier le modèle de pièce"
+    room_type:
+        index: "Types de pièce"
+        edit: "Modifier"
+        create: "Créer"
+        update: "Modifier le type de pièce"
+    project:
+        index: "Liste des projets"
+        edit: "Modifier"
+        new: "Créer"
+        update: "Modifier le projet"
+    accommodation:
+        projects: "Projets"
+        project: "Projet"
+        edit:
+            title: "Logement"
+            projects: "Projets"
+            project: "Projet"
+            edit_title: "Modifier"
+        new: "Créer"
+    logistic:
+        edit: "Modifier la logistique"
+    project_index:
+        index: "Projets"
+        create: "Nouveau projet"
+
+
+back_to_list: "Retourner à la liste"
+
+product:
+    edit:
+        title: "Modifier le produit"
+    form:
+        title: "Titre"
+        reference: "Référence"
+        factoryReference: "Référence usine"
+        additionalPrice: "Prix additionnel"
+        square: "Conditionnement (m2/boîte)"
+        covering: "Covering"
+        thumb: "Vignette"
+        name: "Nom"
+        uses: "Nombre d'utilisations"
+        description: "Description"
+        createdAt: "Créé le"
+        create_cover: "Créer le covering correspondant"
+        action:
+            title: "Action"
+            edit: "Modifier"
+            delete: "Supprimer"
+        success:
+            update: "Produit mis à jour"
+            create: "Produit créé"
+            create_covering: "Produit et Covering créés"
+    remove:
+        modal: "Voulez-vous vraiment supprimer %s %s ?"
+
+covering:
+    edit:
+        title: "Modifier le covering"
+    form:
+        title: "Titre"
+        reference: "Référence"
+        factoryReference: "Référence usine"
+        additionalPrice: "Prix additionnel"
+        square: "Conditionnement (m2/boîte)"
+        covering: "Covering"
+        thumb: "Vignette"
+        name: "Nom"
+        uses: "Nombre d'utilisations"
+        description: "Description"
+        createdAt: "Créé le"
+        product: "Produit"
+        percentage: "Covering"
+        delte_title: "Supprimer"
+        laying:
+            title: "Type de pose"
+            regular: "Droite"
+            diagonal: "Diagonale"
+        action:
+            title: "Action"
+            edit: "Modifier"
+            delete: "Supprimer"
+        success:
+            update: "Covering mis à jour"
+            create: "Covering créé"
+    remove:
+        modal: "Voulez-vous vraiment supprimer le covering %s %s ?"
+
+room_model:
+    duplicate: "Dupliquer"
+    remove:
+        modal: "Voulez-vous vraiment supprimer le modèle de pièce %s?"
+    covering:
+        reference: "Référence covering"
+        reference_placeholder: "Référence covering"
+        price: "prix"
+        price_placeholder: "0"
+        image: "image"
+        image_placeholder: "none"
+    form:
+        title: "Titre"
+        type: "Type"
+        add:
+            success: "Modèle de pièce créé"
+        delete:
+            success: "Modèle de pièce supprimé"
+        choose_company: "Sélectionnez une entreprise"
+        update: 
+            success: "Modèle de pièce mis à jour"
+    array:
+        title: "Intitulé"
+        type: "Type"
+        uses: "Nombre d'utilisations"
+        creation_date: "Date de création"
+        action: "Action"
+    index:
+        title: "Modèles de pièces"
+        count: "modèles de pièces"
+    button:
+        new:
+            room_model: "Nouveau modèle de pièce"
+            room_type: "Nouveau type de pièce"
+        preview: "Prévisualiser"
+        compile: "Compiler"
+        cancel_compilation: "Annuler la compilation"
+        add_surface: "Ajouter une surface"
+    tab:
+        room_model:
+            title: "Modèles de pièces"
+        room_type:
+            title: "Types de pièces"
+        definition: "Définition"
+        surfaces: "Surfaces"
+    status:
+        available: "Modèle de pièce fonctionnel"
+        nonavailable: "Modèle de pièce non fonctionnel"
+    new:
+        title: "Nouveau modèle de pièce"
+    edit:
+        title: "Modifier le modèle de pièce"
+    surface:
+        delete: "Supprimer la surface"
+    surfaces:
+        button:
+            add: "Ajouter"
+            edit: "Modifier"
+        tab:
+            default: "Par défaut"
+            enabled: "Activé"
+            name: "Intitulé"
+            reference: "Référence"
+            surfacePrize: "€ extra / m²"
+            description: "Description"
+            thumbnail: "Vignette"
+            png: "Texture (png)"
+            display: "Ordre d'affichage"
+            action: "Action"
+            position: "Position"
+        modal:
+            new:
+                title: "Ajouter une nouvelle surface"
+            edit:
+                title: "Modifier la surface"
+                covering_reference: "Référence covering"
+
+room_type:
+    remove:
+        modal:
+            content: "Êtes-vous sur de vouloir supprimer ce type de pièce ?"
+    new:
+        title: "Nouveau type de pièce"
+    form:
+        add:
+            success: "Enregistré"
+        delete_title: "Suppression du style de pièce"
+        update:
+            success: "Type de pièce mis à jour"
+    edit:
+        title: "Modifier le type de pièce"
+
+surface:
+    form:
+        title: "Titre"
+        title_placeholder: "Choisir un titre"
+project:
+    form:
+        showPriceLabel: "Afficher les prix côté client"
+        showPriceYes: "Oui"
+        showPriceNo: "Non"
+        showSlaveRoomsOnDashboard: "Afficher les pièces esclaves sur le dashboard"
+        showSlaveRoomsOnDashboardNo: "Non"
+        showSlaveRoomsOnDashboardYes: "Oui"
+        showSlaveRoomsOnValidation: "Afficher les pièces esclaves lors de la validation"
+        showSlaveRoomsOnValidationNo: "Non"
+        showSlaveRoomsOnValidationYes: "Oui"
+        status: "Statut"
+        name: "Nom du projet"
+        address1: "Adresse"
+        address2: "Complément d'adresse"
+        country: "Pays"
+        city: "Ville"
+        dateStart: "Date de début"
+        dateEnd: "Date de fin"
+        zip: "Code postal"
+    remove:
+        modal: "Êtes-vous sur de vouloir supprimer ce projet ?"
+    status:
+        study: "Etude"
+        ongoing: "En cours"
+        finished: "Terminé"
+        canceled: "Annulé"
+    new:
+        title: "Nouveau projet"
+    edit:
+        promotor: "Promoteur"
+        modal:
+            remove:
+                title: "Supprimer le projet"
+        button:
+            delete: "Supprimer le projet"
+        tab:
+            definition: "Définition"
+            subscribers: "Abonnés"
+            accommodations: "Logements"
+            history: "Historique"
+            logistics: "Logistique"
+            coverings: "Coverings"
+            export: "Exporter"
+        subscribers:
+            button:
+                add: "Ajouter un abonné"
+            table:
+                name: "Nom"
+                company: "Entreprise"
+                group: "Groupe"
+                weekly_report: "Abonnement hebdomadaire"
+                monthly_report: "Abonnement mensuel"
+                comment: "Commentaire"
+                action: "Action"
+            form:
+                weeklyReport: "Abonnement hebdomadaire"
+                monthlyReport: "Abonnement mensuel"
+                comment: "Commentaire"
+        accommodations:
+            table:
+                name: "Intitulé"
+                building: "Bâtiment"
+                alley: "Allée"
+                floor: "Etage"
+                number: "Numéro"
+                status: "Statut"
+                client: "Client"
+                end_date: "Date de fin"
+                fitter: "Poseur"
+                comment: "Commentaire"
+                action: "Action" 
+            button:
+                add: "Ajouter un logement"
+                modify: "Modifier"
+
+    edit_promotor: "Promoteur"
+
+
+accommodation:
+    remove:
+        modal: "Êtes-vous sur de vouloir supprimer ce logement ?"
+    status:
+        nonvalidated: "Non validé"
+        validated: "Validé"
+        maintenance: "Maintenance"
+        built: "Construit"
+        title: "Statut"
+    new:
+        title: "Nouveau logement"
+    form:
+        name: "Intitulé"
+        alley: "Allée"
+        building: "Building"
+        floor: "Etage"
+        number: "Numéro"
+        totalSurface: "Surface totale"
+        comment: "Commentaire"
+        dateEnd: "Deadline"
+        accommodationType: "Type de logement"
+    tab:
+        general: "Description"
+        rooms: "Pièces"
+        medias: "Médias"
+        coverings: "Coverings"
+    button:
+        delete: "Supprimer le logement"
+    rooms:
+        tab:
+            room_name: "Intitulé"
+            configurable: "Configurable"
+            room_model: "Modèle de pièce"
+            surface: "Surface(s)"
+            action: "Action"
+        configurable_yes: "Oui"
+        configurable_no: "Non"
+        configurable : "Configurable"
+        room_name_placeholder: "Nom de pièce"
+        button:
+            add_room: "Ajouter une pièce"
+            edit: "Modifier"
+            delete: "Supprimer la pièce"
+        modal:
+            room_model: "Modèle de pièce"
+            choose_master_surface: "Choisir une surface maître"
+            surface_title: "Intitulé"
+            surface_size: "Taille"
+            surface_skirting: "Plinthes"
+            master_surface: "Surface maître"
+    medias:
+        tab:
+            document_name: "Nom de document"
+            media: "Média"
+            position: "Position"
+            action: "Action"
+            button:
+                modify: "Modifier"
+        document_format: "Le document peut être un JPG, GIF ou un PNG, sans restriction de taille"
+        recommended_size: "La taille recommandée est de 800px à 2000px en 72dpi pour un affichage optimal"
+        
+
+client:
+    accommodation_validation:
+        welcome: "Bienvenue dans le configurateur"
+        explanation: |
+            Avant de démarrer, nous devons nous assurer que nous avons des informations correctes vous concernant.
+            Si vous constatez quoi que ce soit de manquant ou erroné, merci de nous le signaler.
+        check_title: "Contrôlez et validez"
+        full_name: "Nom complet"
+        accommodation_type: "Type de logement"
+        accommodation_name_or_number: "Numéro ou non de logement"
+        validation_warning: |
+            En signant électroniquement ci-dessous, vous reconnaissez que les informations ci-dessous sont exactes. Toutes les modifications validées ci-après seront faites en votre nom. En cas d'erreur, merci de nous le signaler.
+        button_validate: "Valider"
+        button_something_wrong: "Signaler une erreur"
+        button_send: "Envoyer"
+        title_wrong: "Dites nous tout"
+        content_wrong: "Ecrivez ci-dessous les erreurs à corriger et cliquez sur Envoyer."
+        modalTitleValid: "Félicitations"
+        modalContentValid: "Vous pouvez maintenant commencer à configurer votre logement. Vous allez être redirigé dans quelques secondes."
+        modalTitleWrong: "Bien reçu"
+        modalContentWrong: "Nous vous recontactons dans 48 heures maximum"
+
+    menu:
+        dashboard: "Tableau de bord"
+    common:
+        no_accommodation: |
+            Votre compte n'est lié à aucun logement. Si c'est une erreur, merci de contacter %emailAdmin% pour plus d'informations.
+
+            <a href="%LogOut%">Déconnexion</a>
+    dashboard:
+        accommodation_in_maintenance: "Ce logement est en maintenance. Merci de revenir plus tard."
+        accommodation_built: "Ce logement a été construit et n'est plus disponible ici."
+        setup:
+            title: "Bonjour !"
+            subtitle: "Il est l'heure de configurer votre nouveau logement !"
+        is_setup:
+            title: "Bonjour !"
+            subtitle: "Vous n'avez plus qu'à attendre"
+        choices_validated:
+            title: "Vous avez déjà validé vos choix"
+            content: "Vous pouvez toutefois continuer à visualiser votre futur logement jusqu'à ce que celui-ci soit définitivement construit."
+        explanations:
+            title: "Comment ça fonctionne ?"
+            content: "Configurez chaque pièce avec vos matériaux préférés. Puis, <a href='%validateUrl%' title='Validez vos choix'>validez vos choix</a>"        
+        time:
+            title: "{0}C'est le dernier jour !|{1}Il ne vous reste qu'une journée !|]1,Inf[Il vous reste %count% jours"
+            content: "Passée cette date, la validation sera automatique avec les derniers choix effectués."
+        balance:
+            title: "Votre balance"
+            is_positive: "Certains produits sélectionnés ont un prix additionnel et votre balance est de "
+            is_null: "Certains produits peuvent avoir un prix additionnel. Si vous en choisissez, vous verrez ici votre balance totale."
+        validation:
+            incentive: "Lorsque vous êtes prêt, validez vos choix"
+            button: "Valider mes choix"
+        button:
+            visualize: "Visualiser"
+            customize: "Configurer"
+        room_non_configurable: "Cette pièce n'est pas configurable. Elle dépend d'une autre pièce."
+        material_total: "Total des matériaux : "
+    
+    config:
+        button:
+            save_selection: "Sauvegarder ma sélection"
+            modify_surface: "Modifier"
+            close: "Fermer"
+        save_success: "Votre sélection a bien été sauvegardé !"
+
+    validation:
+        button:
+            validate: "Valider mes choix"
+        greetings:
+            title: "Félicitations !"
+            content: "Vous venez de valider vos choix. Vous allez maintenant être redirigié vers le tableau de bord d'ici quelques secondes."
+        warning: "Vous êtes sur le point de valider vos choix. Prenez le temps de tout vérifier car cette validation est définitive."
+        positive_balance: "Votre balance est positive. Vous serez recontacté à ce sujet par votre promoteur."
+        balance_due: "Balance"
+        after_infos: "Une fois vos choix validés, vous ne pourrez plus les modifier mais vous pourrez continuer à visualiser votre futur logemement tant que ce dernier n'est pas construit."
+        validation: |
+                    Je compprends et <br/><a href="%transLink%" title="Valider" class="btn btn-primary btn-lg client-button client-button-validate">Je valide ma sélection !</a>
+        material_total: "Total des matériaux : "
+    confirmation:
+        warning: "Vous êtes sur le point de valider vos choix. Prenez le temps de tout vérifier car cette validation est définitive."
+        link: |
+                Je comprends et <br/><a href="%transLink%" title="Valider" class="btn btn-primary btn-lg client-button client-button-validate">Je valide ma sélection !</a>
+
+projects:
+    tablename:
+        name: "Nom"
+        promotor: "Promoteur"
+        status: "Statut"
+        accom: "Nombre de logements"
+        accom_with_client: "Logements occupés"
+        accom_validate: "Logements validés"
+        end: "Date de fin"
+    button:
+        new: "Nouveau projet"
+    index:
+        title: "Projets"
+
+user:
+    no_rights: "Ce compte ne possède pas de privilège."
+
+companies:
+    title: "Entreprises"
+    index:
+        title: "Entreprises"
+    tab:
+        promotors: "Promoteurs"
+        providers: "Fournisseurs"
+        fitters: "Poseurs"
+        others: "Autres"
+    button:
+        new: "Ajouter une entreprise"
+    edit:
+        title: "Modifier l'entreprise"
+modal:
+    button:
+        close: "Fermer"
+        cancel: "Annuler"
+        delete: "Supprimer"
+        save: "Enregistrer"
+
+flash_message:
+    success: "Succès"
+    warning: "Attention"
+    danger: "Danger"
+    error: "Erreur"
+compilations:
+    title: "Compilations"
+    tab:
+        id: "ID"
+        room_model: "Modèle de pièce"
+        expected_images: "Images attendues"
+        date_insert: "Date de création"
+        date_start: "Date d'execution"
+        duration: "Durée"
+        status: "Statut"
+        action: "Action"
+        visibility: "Masquer"
+    button:
+        hide: "Masquer"
+        cancel: "Annuler"
+
+page_title:
+    admin:
+        index: "Administration"
+        companies:
+            index: "Entreprises"
+            new: "Nouvelle entreprise"
+            show: "Entreprise"
+            edit: "Modifier l'entreprise"
+        covering:
+            index: "Coverings"
+            new: "Nouveau covering"
+            show: "Covering"
+            edit: "Modifier le covering"
+        product:
+            index: "Produits"
+            new: "Nouveau produit"
+            show: "Produit"
+            edit: "Modifier le produit"
+        project:
+            index: "Projets"
+            new: "Nouveau projet"
+            show: "Projet"
+            edit: "Modifier le projet"
+        room_model:
+            index: "Modèles de pièce"
+            new: "Nouveau modèle de pièce"
+            show: "Modèle de pièce"
+            edit: "Modifier le modèle de pièce"
+        room_type:
+            index: "Types de pièce"
+            new: "Nouveau type de pièce"
+            show: "Type de pièce"
+            edit: "Modifier le type de pièce"
+    client:
+        index: "Configurer mon logement"
+        accommodation_validation: "Valider mon compte"
+        maintenance: "Maintenance"
+        validation:
+            index: "Valider mes choix"
+            confirmation: "Valider mes choix"
+
+administration:
+    menu:
+        projects: "Projets"
+        companies: "Entreprises"
+        room_models: "Modèles de pièces"
+        coverings: "Coverings"
+        products: "Produits"
+        users: "Utilisateurs"
+        my_profile: "Mon profil"
+        compilations: "Compilations"

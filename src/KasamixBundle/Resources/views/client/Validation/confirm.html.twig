@@ -1,0 +1,43 @@
+{% trans_default_domain 'KasamixBundle' %}
+{% set currentUrlName = app.request.attributes.get('_route') %}
+{% extends '@Kasamix/base-client.html.twig' %}
+{% block title %}{{'page_title.client.validation.confirmation'|trans}}{% endblock %}
+{% block content %}
+	<div class="Modal-Background toggle-Modal is-Hidden">
+		<div class="validated Center-Block Absolute-Center is-Fixed is-Variable Modal">
+			<div class="Center-Content">
+				<h2>{{ 'client.validation.greetings.title'|trans }}</h2>
+				<p>{{ 'client.validation.greetings.content'|trans }}</p>
+				<p id="count"></p>
+			</div>
+		</div>
+	</div>
+	<div class="client-container-confirmation-bottom-wrapper">
+		<div class="container client-container-validation-top">
+			<div class="row">
+				<div class="col-sm-6 col-sm-offset-3 validation-block">
+					<p>{{ 'client.confirmation.warning'|trans }}</p>
+					<p style="margin-top:35px">{{ 'client.confirmation.link'|trans({'%transLink%': path('client_validation')})|raw }}</p>
+				</div>
+			</div>
+		</div><!-- client-container-validation-bottom -->
+	</div><!-- client-container-validation-bottom-wrapper -->
+	<div class="container container-footer">
+			<div class="row">
+				<div class="col-lg-12">
+					<a href="{{ path('fos_user_security_logout') }}">{{ 'layout.logout'|trans }}</a>
+				</div>
+			</div>
+		</div>
+	</div><!-- page-client-validation -->
+{% endblock %}{# block content #}
+
+{% block javascript %}
+	<script>
+		var accommodationId = "{{ app.user.acommodation.id }}";
+		var setAccommodationStatusUrl = "{{ path('accommodation_status_update_ajax') }}";
+		var dashboardUrl = "{{ path('client_dashboard') }}";
+		var accoPrices = $.parseJSON({{accommodation_prices|json_encode|raw}});
+	</script>
+    <script src="{{ asset('bundles/kasamixbundle/js/client/client.confirmation.js') }}"></script>
+{% endblock %}

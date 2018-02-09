@@ -1,0 +1,302 @@
+{% trans_default_domain 'KasamixBundle' %}
+{% extends '@Kasamix/base-client.html.twig' %}
+{% block defining_javascript %}
+    <script type="text/javascript" src="{{ asset('bundles/kasamixbundle/js/l.min.js') }}"></script>
+{% endblock %}
+{% block selection_choices %}
+    
+{% endblock %}
+{% block room_name %}
+    <h2>{{ room.name }}</h2>
+{% endblock %}
+{% block selection_save %}
+    <div id="selection-block">
+        <div id="user-selection hidden">
+
+        </div>
+        <form id="update-surface-form">
+            {% for surfaceCount, surface in room.surface %}
+                <input type="hidden" name="surface-{{surface.id}}" value="{{ selections[surfaceCount].coveringId }}">
+            {% endfor %}
+            {% if app.user.acommodation.status == 1 %}
+                <a href="#" class="btn-save-selection pull-right" id="save-selection" onclick="user.saveSelection(event)">{{ 'client.config.button.save_selection'|trans }}</a>
+                {% if app.user.acommodation.project.showPrice == 1%}<span class="totalPrice"></span>{% endif %}
+                {% if app.user.acommodation.project.showPrice == 1%}<span class="totalPrice"></span-->{% endif %}
+            {% endif %}
+        </form>
+    </div>
+{% endblock %}
+{% block content %}
+        <div class="page-client-config">
+        <script>
+            var activeSelection = {{ selections|json_encode|raw }}
+            var showPrice = {{ app.user.acommodation.project.showPrice }};
+            //console.log(activeSelection[0].coveringId);
+            var surfacesDatas = [];
+            {% for surfaceCount,surface in room.surface %}
+                //surfaceSizes[{{surfaceCount}}] = {{ surface.squareMeter }};
+                surfacesDatas[{{surfaceCount}}] = 
+                {
+                    'size'  : {{surface.squareMeter}},
+                    'value' : 0
+                }
+            {% endfor %}
+            var totalPrice;
+        </script>
+        <div class="save-success">{{ 'client.config.save_success'|trans }}</div>
+
+        <div id="panorama"></div>
+        <div class="button-nav">
+            {% for surfaceCount, surfaces in roomModel.surfaces %}
+                <button type="button" class="btn-white open-menu" id="open-{{ surfaceCount }}" >{{ 'client.config.button.modify_surface'|trans }} {{ surfaces.title }}</button>
+            {% endfor %}
+        </div>
+        {% for surfaceCount, surface in room.surface %}
+            <div id="list-{{ surfaceCount }}" class="material-list surface-{{ surfaceCount }}">
+                <div class="content">
+                    {% for surfaceCovering in surface.surfaceModelId.surfaceModelHasCovering %}
+                         {% if surface.selectedCovering.id is defined %}
+                                    {% if surface.selectedCovering.id == surfaceCovering.covering.id %}
+                                        {% set is_selected = 'choice_user choice_current' %}
+                                    {% else %}
+                                        {% set is_selected ='' %}
+                                    {% endif %}
+                                {% else %}
+                                    {% set is_selected ='' %}
+                                {% endif %}
+                        {% set path = 'upload/covering/' ~ surfaceCovering.covering.id ~ '/' ~ surfaceCovering.covering.thumb %}
+                            <div class='slide {% if surfaceCovering.isDefault %}choice_default{% endif %} {{ is_selected }}'>
+                                <a href='' title='{{ surfaceCovering.covering.title }}' data-col= "{{ surfaceCount }}" data-picture="{{ surfaceCovering.picture|replace({ ('.png'): '' }) }}" data-coveringid="{{ surfaceCovering.covering.id}}" data-surfaceid="{{ surface.id }}" data-coveringprice="{{ surfaceCovering.additionalPrice}}">
+                                    <img src="{{ asset(path) }}" alt="" class="img-responsive">
+
+                                    <p class='caption'>{% if app.user.acommodation.project.showPrice == 1 %}
+                                        {% if surfaceCovering.additionalPrice > 0 %}
+                                            <span class="config-add-price">+{{ surfaceCovering.additionalPrice }} € /m²</span>
+                                        {% endif %}
+                                    {% endif %}{{ surfaceCovering.covering.title }}</p>
+                                </a>
+                                <div class="hidden">
+                                    <span class="covering_reference">Ref: {{ surfaceCovering.covering.reference }}</span>
+                                    <span class="covering_additional_price">Add price: {{ surfaceCovering.covering.additionalPrice }}</span>
+                                    <span class="covering_description">Description: {{ surfaceCovering.covering.description|raw }}</span>
+                                    <span class="covering_title">Covering name: {{ surfaceCovering.covering.title }}</span>
+                                </div>
+                            </div>
+                    {% endfor %}
+                    <div class="button-nav">
+                        <button type="button" class="btn-white close-menu" id="close">{{ 'client.config.button.close'|trans }}</button>
+                    </div> 
+                </div>
+            </div>
+        {% endfor %}
+    </div><!-- client-page-config -->
+{% endblock %}
+
+{% block javascript %}
+    <script>
+        var viewer = pannellum.viewer("panorama", {{ compiled|json_encode|raw }});
+    </script>
+    <script src="{{ asset('bundles/kasamixbundle/js/client/client.config.js') }}"></script>
+    <script>
+        var navigatorIsChrome;
+        var isChromium = window.chrome,
+            winNav = window.navigator,
+            vendorName = winNav.vendor,
+            isOpera = winNav.userAgent.indexOf("OPR") > -1,
+            isIEedge = winNav.userAgent.indexOf("Edge") > -1,
+            isIOSChrome = winNav.userAgent.match("CriOS");
+        if (isIOSChrome) {
+           navigatorIsChrome = true;
+        } else if (
+          isChromium !== null &&
+          typeof isChromium !== "undefined" &&
+          vendorName === "Google Inc." &&
+          isOpera === false &&
+          isIEedge === false
+        ) {
+           navigatorIsChrome = true;
+        } else { 
+           navigatorIsChrome = false;
+        }
+
+        var updateSurfaceUrl = "{{ path('surface_update_ajax') }}";
+        var updateSurfacePriceUrl = "{{ path('surface_price_update_ajax') }}";
+        var loadCovering = "{{ path('load_covering') }}";
+        var coveringAssetFolder = "{{ asset('upload/covering/') }}";
+        
+        $(document).ready(function () {
+            window.onresize = function(event) {
+                resizeDiv();
+            }
+
+            var user_choice = [];
+            var activeScene = '';
+            
+            resizeDiv();
+            
+            //$('.slide').find("[data-coveringid='" + current + "']");
+            //console.log(activeSelection[)
+            $(".open-menu").click(function(e)
+            {
+                var menuToOpen = $(this).attr("id").replace("open-","list-");
+                $("#"+menuToOpen).show();
+                $('*[id^="open-"]').hide();
+            });
+            $(".close-menu").click(function(e)
+            {
+                $(e.target).closest(".material-list").hide();
+                $('*[id^="open-"]').show();
+            });
+            $(".slide a").click(function(e)
+            {
+                $(e.target).closest(".material-list").hide();
+                $('*[id^="open-"]').show();
+            });
+            for(var i=0;i<activeSelection.length;i++)
+            {
+                console.log(i+','+activeSelection[i].coveringId);
+                $('.material-list').eq(i).find('.slide').find("[data-coveringid='" + activeSelection[i].coveringId + "']").parent().addClass('choice_current');
+                $('#user-selection').append('<div class="selected-mat"></div>');
+                displayUserSelection(i,activeSelection[i].coveringId);
+            }
+            $('.slide a').click(function(event) {
+                $(this).parent().parent().find('.slide').each(function()
+                {
+                    $(this).removeClass('choice_current');
+                });
+                $(this).parent().addClass('choice_current');
+                event.preventDefault();
+                var surfaceIndex = $(this).attr('data-col');
+                var surfaceid = $(this).attr('data-surfaceid');
+                activeSelection[surfaceIndex].picture = $(this).attr('data-picture');
+                activeSelection[surfaceIndex].coveringId = $(this).attr('data-coveringid');
+                activeSelection[surfaceIndex].coveringPrice = $(this).attr('data-coveringprice');
+                displayUserSelection(surfaceIndex,activeSelection[surfaceIndex].coveringId);
+                // UPDATE FORM --------------------------------------------------------------
+                $('#update-surface-form').find("input[name='surface-"+surfaceid+"']").val($(this).attr('data-coveringid'));
+                //console.log($('input[name="surface-'+surfaceIndex+'"]'));
+                // end update form ----------------------------------------------------------
+                var scene_to_load = '';
+                for(var i=0;i<activeSelection.length;i++)
+                {
+                    if(i>0)
+                    {
+                        scene_to_load += '_'+activeSelection[i].picture;
+                    }
+                    else
+                    {
+                        scene_to_load += activeSelection[i].picture;
+                    }
+                }
+                $.each({{ compiled.scenes|json_encode|raw }}, function (key, value) {
+                    if (key === scene_to_load) {
+                        pitch = viewer.getPitch();
+                        yaw = viewer.getYaw();
+                        hFov = viewer.getHfov();
+                        viewer.loadScene(key, pitch, yaw, hFov);
+                        return false;
+                    }
+                });                
+                showRoomPrice();
+            });
+            showRoomPrice();
+        });
+
+        function resizeDiv() {
+            var vpw = $(window).width();
+            var mLeft = 0;
+            if(vpw>=2048 && navigatorIsChrome)
+            {
+                mLeft = (vpw-2048)/2;
+                vpw = 2048;                
+            }else{
+                mLeft = 0;
+            }
+            //var vph = $(window).height()-$('.navbar-client').height()-5;
+            var vph = $(window).height()-$('.menu-config').height();
+            $('#panorama').css({
+                'marginLeft': mLeft + 'px'
+            });
+            $('#panorama').css({
+                'height': vph + 'px'
+            });
+            $('#panorama').css({
+                'width': vpw + 'px'
+            });
+            /*
+            $('.pnlm-render-container').css({
+                'height': vph + 'px'
+            });
+            $('.pnlm-render-container').css({
+                'width': vpw + 'px'
+            });
+            */
+            $('.material-list').css({
+                'height': $(window).height() + 'px'
+            });
+            
+        }
+        function showRoomPrice()
+        {
+            totalPrice = 0;
+            for(var i=0;i<surfacesDatas.length;i++)
+            {
+                var surfacePrice = Math.round((surfacesDatas[i].value * surfacesDatas[i].size)*100)/100;
+                $('#user-selection .selected-mat').eq(i).find('.surface-price').html(surfacePrice);
+                totalPrice += surfacePrice;
+            }
+            $('.totalPrice').html(Math.round(totalPrice*100)/100);
+            if(totalPrice>0)
+            {
+                $('.totalPrice').show("fast");
+            }
+            else
+            {
+                $('.totalPrice').hide("fast");
+            }
+        }
+        function displayUserSelection(index,coveringId)
+        {
+            var ind = parseInt(index) + 1;
+            console.log("ind : "+ind+" coveringId : "+coveringId);
+            //$('#user-selection div:nth-child('+index+')').remove();
+            $.ajax({
+            url: loadCovering,
+            method: 'POST',
+            dataType: "json",
+            data: {
+                    'coveringId': coveringId
+                },
+            beforeSend: function () {
+            }
+            }).done(function (data) {
+                console.log(data);
+                var content = '<img src="'+coveringAssetFolder+data.id+'/'+data.thumb+'" class="img-responsive">';
+                if (showPrice == 1)
+                {
+                    content+= '<span class="surface-price"></span>';
+                }
+                $('#user-selection div:nth-child('+ind+')').html(content);;
+                // Update surface prices and room price
+
+                var price = $('*[id^="list-"]').eq(ind-1).find("[data-coveringid='" + data.id + "']").attr('data-coveringprice');
+                surfacesDatas[ind-1].value = price;
+                showRoomPrice();
+                //var surfaceSize = 
+            }).fail(function() {
+                alert( "error" );
+            }).always(function () {
+                
+            });
+            return false;
+        }
+        function updateChoiceUser()
+        {
+            $('.content').find('.slide').each(function()
+            {
+                $(this).removeClass('choice_user');
+            });
+            $('.choice_current').addClass('choice_user');
+        }
+    </script>
+{% endblock %}

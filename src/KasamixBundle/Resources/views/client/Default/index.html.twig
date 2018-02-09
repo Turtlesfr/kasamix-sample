@@ -1,0 +1,214 @@
+{% trans_default_domain 'KasamixBundle' %}
+{% set currentUrlName = app.request.attributes.get('_route') %}
+{% extends '@Kasamix/base-client-index.html.twig' %}
+{% block title %}{{'page_title.client.index'|trans}}{% endblock %}
+{% block content %}
+	{% if app.user.acommodation.status == 3 %}
+		<p>{{ 'client.dashboard.accommodation_in_maintenance'|trans }}</p>
+	{% elseif app.user.acommodation.status == 4 %}
+		<p>{{ 'client.dashboard.accommodation_built'|trans }}</p>
+	{% else %}
+		<div class="page-client-dashboard">
+			<div class="client-container-dashboard-top-wrapper">
+				<div class="container client-container-dashboard-top">
+					<div class="row">
+						<div class="col-xs-3 col-xs-3 col-md-3 col-lg-3">
+							<a href="#"><img src="{{ asset("upload/company/") ~ app.user.acommodation.project.promotor.logo  }}" class="img-responsive" /></a>
+						</div>
+						<div class="col-xs-9 col-xs-9 col-md-9 col-lg-9 client-greeting">
+									
+							{% if app.user.acommodation.status !=2 %}
+								<h1>{{ 'client.dashboard.setup.title'|trans }}</h1>
+								<h2>{{ 'client.dashboard.setup.subtitle'|trans }}</h2>
+							{% else %}
+								<h1>{{ 'client.dashboard.is_setup.title'|trans }}</h1>
+								<h2>{{ 'client.dashboard.is_setup.subtitle'|trans }}</h2>
+							{% endif %}
+									<!--p>You are associated with accommodation {{ app.user.acommodation.name }} which is part of project {{ app.user.acommodation.project.name }}</p-->
+						</div>
+					</div>
+					<div class="row spacer client-explanations">
+						{# endDate and startDate are strings or DateTime objects #}
+						{% set endDate = app.user.acommodation.dateEnd|date('Y-m-d') %}
+						{% set startDate = 'now'|date('Y-m-d') %}
+						{% set difference = date(endDate).diff(date(startDate)) %}
+						{% set leftDays = difference.days %}
+						{% if app.user.acommodation.status ==2 %}
+							<div class="{% if app.user.acommodation.project.showPrice == 0 %}col-xs-12 col-md-12 col-lg-12{% else %}col-xs-8 col-md-8 col-lg-8{% endif %}">
+								<h3>{{ 'client.dashboard.choices_validated.title'|trans }}</h3>
+								<p>{{ 'client.dashboard.choices_validated.content'|trans }}</p>
+							</div>
+						{% else %}
+							<div class="{% if (app.user.acommodation.project.showPrice == 1) %}col-xs-12 col-md-4 col-lg-4{% else %}col-xs-12 col-md-8 col-lg-8{% endif %}">
+								<h3>{{ 'client.dashboard.explanations.title'|trans }}</h3>
+								<p>{{ 'client.dashboard.explanations.content'|trans({'%validateUrl%': path('client_validation')})|raw }}</p>
+							</div>
+							<div class="col-xs-12 col-md-4 col-lg-4">
+								<h3>{{ 'client.dashboard.time.title'|transchoice(leftDays)}}</h3>
+								<p>{{ 'client.dashboard.time.content'|trans }}</p>
+							</div>
+						{% endif %}
+						{% if app.user.acommodation.project.showPrice == 1 %}
+							<div class="col-xs-12 col-md-4 col-lg-4">
+								<h3>{{ 'client.dashboard.balance.title'|trans }}</h3>
+								{% if 1 > 0 %}
+									<p>{{ 'client.dashboard.balance.is_positive'|trans }} <span class="user-balance"></span>.</p>
+								{% else %}
+									<p>{{ 'client.dashboard.balance.is_null'|trans }}</p>
+								{% endif %}
+							</div>
+						{% endif %}
+					</div><!--row-->
+				</div><!-- client-container-dashboard-top -->
+			</div><!-- client-container-dashboard-top-wrapper -->
+			{% if app.user.acommodation.status !=2 %}
+				<div class="client-container-dashboard-validation-wrapper">
+					<div class="container">
+						<div class="row">
+							<div class="col-xs-12 col-md-12 col-lg-12 client-validation-content">
+								<div class="row">
+									<div class="col-xs-12 col-md-8 col-lg-8">
+										<p style="margin-top:10px;">{{ 'client.dashboard.validation.incentive'|trans }}</p>
+									</div>
+									<div class="col-xs-12 col-md-4 col-lg-4" style="text-align: center">
+										<p><a href="{{ path('client_validation') }}" title="Validate" class="btn btn-primary btn-lg client-button client-button-validate">{{ 'client.dashboard.validation.button'|trans }}</a></p>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			{% endif %}
+			<div class="client-container-dashboard-bottom-wrapper">
+				{% for room in app.user.acommodation.room %}
+					{% if room.surface|length != 0 %} {# don't print if room has no surface #}	
+						{% if room.configurable == 0 and app.user.acommodation.project.showSlaveRoomsOnDashboard == 0 %}
+						{% else %}
+							<div class="client-room-container{% if room.configurable == 1 %} room-is-configurable{% endif %}" data-roomid="{{ room.id }}">
+								<div class="container">
+									<div class="row">
+										<div class="col-xs-12 col-md-8 col-lg-8">
+											{% if room.configurable == 0 %} {# ------------ ROOM IS NOT CONFIGURABLE ------------- #}
+											
+												<div class="row">
+													<div class="col-xs-12 col-md-12 col-lg-12" style="text-align: center;">
+														
+													</div>
+												</div><!--row-->
+												<div class="row">
+													{% for surface in room.surface %}
+														{% if surface.masterSurfaceId %}{# there is a master surface. We check if it has a selected covering or default #}
+															{% if surface.masterSurfaceId.selectedCoveringId %}
+																{% set selectedCoveringId = surface.masterSurfaceId.selectedCoveringId.id %}
+																{% for surfaceCovering in surface.masterSurfaceId.surfaceModelId.surfaceModelHasCovering %}
+																	{% if surfaceCovering.covering.id == selectedCoveringId %}
+																		{% set selectedCoveringPrice = surfaceCovering.additionalPrice %}
+																		{% set surfacePrice = selectedCoveringPrice * surface.squareMeter %}
+																		<div class="col-xs-{% if room.surface|length == 1 %}12{%else%}6{%endif%} col-md-6 col-ld-6{% if room.surface|length == 1 %} col-md-offset-3 col-lg-offset-3{% endif %} client-surface-item" data-surface-id="{{ surface.id }}">
+																			<div class="client-surface-thumbnail-container">
+											        							<img src="{{ asset("upload/covering/") ~ surface.masterSurfaceId.selectedCoveringId.id ~ "/" ~ surface.masterSurfaceId.selectedCoveringId.thumb  }}">
+											        						</div>
+													        				<p class="client-product-name">{{ surface.masterSurfaceId.selectedCoveringId.title }}</p>
+													        				<p class="client-product-description hidden-xs">{{ surface.masterSurfaceId.selectedCoveringId.description }}</p>
+																		</div><!-- col-sm surface -->
+																	{% endif %}
+																{% endfor %}
+															{% else %} {# Master surface has no selected covering ==> Check default #}
+																<!--p>Is slave of surface n°{{ surface.masterSurfaceId.id }}</p-->
+												        		<!--p>{{ surface.masterSurfaceId.surfaceModelId.title }}</p-->
+												        		{% for surfaceCovering in surface.masterSurfaceId.surfaceModelId.surfaceModelHasCovering %}
+												        			{% if surfaceCovering.isDefault == true %}
+												        				<div class="col-xs-{% if room.surface|length == 1 %}12{%else%}6{%endif%} col-md-6 col-lg-6{% if room.surface|length == 1 %} col-md-offset-3 col-lg-offset-3{% endif %} client-surface-item">
+												        					<div class="client-surface-thumbnail-container">
+											        							<img src="{{ asset("upload/covering/") ~ surfaceCovering.covering.id ~ "/" ~ surfaceCovering.covering.thumb  }}">
+											        						</div>
+												        					<p class="client-product-name">{{ surfaceCovering.covering.title }}</p>
+												        					<p class="client-product-description hidden-xs hideme">{{ surfaceCovering.covering.description }}</p>
+												        					<!--p>Price = {{ surfaceCovering.additionalPrice|number_format(2, '.', ',') }} €/m²</p>
+												        					<p>Surface size = {{ surface.squareMeter }}</p-->
+												        				</div>
+												        			{% endif %}
+												        		{% endfor %}
+															{% endif %}				        		
+											        		
+											        	{% endif %}
+													{% endfor %}		
+												</div><!--row-->
+											{% else %}                     {# ------------ ROOM IS CONFIGURABLE ------------- #}
+												<div class="row">
+													{% for surface in room.surface %}
+														{% if surface.selectedCoveringId %}
+															{% set selectedCoveringId = surface.selectedCoveringId.id %}
+															{% for surfaceCovering in surface.surfaceModelId.surfaceModelHasCovering %}
+																{% if surfaceCovering.covering.id == selectedCoveringId %}
+																	{% set selectedCoveringPrice = surfaceCovering.additionalPrice %}
+																	{% set surfacePrice = selectedCoveringPrice * surface.squareMeter %}
+																	<div class="col-xs-{% if room.surface|length == 1 %}12{%else%}6{%endif%} col-md-6 col-lg-6 {% if room.surface|length == 1 %} col-md-offset-3 col-lg-offset-3{% endif %} client-surface-item" data-surface-id="{{ surface.id }}">
+																		<div class="client-surface-thumbnail-container">
+										        							<img src="{{ asset("upload/covering/") ~ surface.selectedCoveringId.id ~ "/" ~ surface.selectedCoveringId.thumb  }}">
+										        						</div>
+												        				<p class="client-product-name">{{ surface.selectedCoveringId.title }}</p>
+												        				<p class="client-product-description hidden-xs">{{ surface.selectedCoveringId.description }}</p>
+																	</div><!-- col-sm surface -->
+																{% endif %}
+															{% endfor %}
+														{% else %}
+															{% for surfaceCovering in surface.surfaceModelId.surfaceModelHasCovering %}
+												        		{% if surfaceCovering.isDefault == true %}
+																	<div class="col-xs-{% if room.surface|length == 1 %}12{%else%}6{%endif%} col-md-6 col-lg-6 {% if room.surface|length == 1 %} col-md-offset-3 col-lg-offset-3{% endif %} client-surface-item" data-surface-id="{{ surface.id }}">
+																		<div class="client-surface-thumbnail-container">
+										        							<img src="{{ asset("upload/covering/") ~ surfaceCovering.covering.id ~ "/" ~ surfaceCovering.covering.thumb  }}">
+										        						</div>
+												        				<p class="client-product-name">{{ surfaceCovering.covering.title }}</p>
+												        				<p class="client-product-description hidden-xs">{{ surfaceCovering.covering.description }}</p>
+																	</div><!-- col-sm surface -->
+																{% endif %}
+											        		{% endfor %}
+											        	{% endif %}	
+													{% endfor %}
+												</div><!--row-->
+											{% endif %}
+										</div>
+										<div class="col-xs-12 col-md-4 col-lg-4 room-infos" style="text-align: center">
+											<h2 class="client-room-title">{{ room.name }}</h2>
+											{% if app.user.acommodation.project.showPrice == 1 %}
+								        		<span class="client-room-price">
+								        			{{ 'client.dashboard.material_total'|trans }}<span class="client-room-price-value"></span>
+								        		</span>
+								        	{% endif %}
+								        	{% if room.configurable %}
+													<p><a href="{{ path('client_room_config',{'roommodelid': room.roomModel.id,'roomid':room.id }) }}" title="Customize" class="btn btn-primary btn-lg client-button client-button-customize">{% if app.user.acommodation.status !=2 %}	{{ 'client.dashboard.button.customize'|trans }}{% else %}{{ 'client.dashboard.button.visualize'|trans }}{% endif %}</a></p>
+
+											{% else %}
+												<p><span class="client-room-not-configurable">{{ 'client.dashboard.room_non_configurable'|trans }}</span></p>
+											{% endif %}
+								        	
+										</div>
+									</div><!-- row -->
+								</div>
+							</div><!-- client-room-container -->
+						{% endif %}
+					{% endif %}
+				{% endfor %}
+				<div class="container container-footer">
+					<div class="row">
+						<div class="col-xs-12 col-md-12 col-lg-12">
+							<a href="{{ path('fos_user_security_logout') }}">{{ 'layout.logout'|trans }}</a>
+						</div>
+					</div>
+				</div>
+			</div><!-- client-container-dashboard-bottom-wrapper -->
+		</div><!-- client-page-dashboard -->
+	{% endif %}
+{% endblock %}{# block content #}
+
+{% block javascript %}
+	<script>
+		var accoPrices = $.parseJSON({{accommodation_prices|json_encode|raw}});
+		</script>
+    <script>
+        //var accommodationRoom.listUrl = "{{ path('room_list', {'id': app.user.acommodation.id}) }}";
+        var loadSurfacePrice = "{{ path('load_surface_price') }}";
+    </script>
+    <script src="{{ asset('bundles/kasamixbundle/js/client.page.js') }}"></script>
+{% endblock %}

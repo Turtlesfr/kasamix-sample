@@ -1,0 +1,29 @@
+profile:
+    error:
+        email:
+            blank: "Email required"
+        company: "Company name requried"
+#        job: Job title required
+        firstName: "Please put your / client Name"
+        lastName: "Please put your / client Surname"
+        changePassword: "Password not changed"
+
+
+company:
+    error:
+        name: "Company name required"
+        email:
+            blank: "email required"
+            format: "Incorect email"
+        type: "Company type required"
+        remove:
+            hasUser: "Company has related user, delete action impossible"
+        form:
+            general: "Please check form errors"
+
+product:
+    form:
+        success:
+          create: "Product created"
+          update: "Product updated"
+          delete: "Product deleted"

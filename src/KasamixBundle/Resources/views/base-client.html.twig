@@ -1,0 +1,90 @@
+{% trans_default_domain 'KasamixBundle' %}
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>{% block title %}{% endblock %}</title>
+    <meta name="description" content="Kasamix - 3D configurator">
+    <meta name="author" content="Kasamix">
+
+    <link rel="apple-touch-icon" sizes="57x57" href="{{ asset('bundles/kasamixbundle/favicon/apple-icon-57x57.png') }}">
+    <link rel="apple-touch-icon" sizes="60x60" href="{{ asset('bundles/kasamixbundle/favicon/apple-icon-60x60.png') }}">
+    <link rel="apple-touch-icon" sizes="72x72" href="{{ asset('bundles/kasamixbundle/favicon/apple-icon-72x72.png') }}">
+    <link rel="apple-touch-icon" sizes="76x76" href="{{ asset('bundles/kasamixbundle/favicon/apple-icon-76x76.png') }}">
+    <link rel="apple-touch-icon" sizes="114x114"
+          href="{{ asset('bundles/kasamixbundle/favicon/apple-icon-114x114.png') }}">
+    <link rel="apple-touch-icon" sizes="120x120"
+          href="{{ asset('bundles/kasamixbundle/favicon/apple-icon-120x120.png') }}">
+    <link rel="apple-touch-icon" sizes="144x144"
+          href="{{ asset('bundles/kasamixbundle/favicon/apple-icon-144x144.png') }}">
+    <link rel="apple-touch-icon" sizes="152x152"
+          href="{{ asset('bundles/kasamixbundle/favicon/apple-icon-152x152.png') }}">
+    <link rel="apple-touch-icon" sizes="180x180"
+          href="{{ asset('bundles/kasamixbundle/favicon/apple-icon-180x180.png') }}">
+    <link rel="icon" type="image/png" sizes="192x192"
+          href="{{ asset('bundles/kasamixbundle/favicon/android-icon-192x192.png') }}">
+    <link rel="icon" type="image/png" sizes="32x32"
+          href="{{ asset('bundles/kasamixbundle/favicon/favicon-32x32.png') }}">
+    <link rel="icon" type="image/png" sizes="96x96"
+          href="{{ asset('bundles/kasamixbundle/favicon/favicon-96x96.png') }}">
+    <link rel="icon" type="image/png" sizes="16x16"
+          href="{{ asset('bundles/kasamixbundle/favicon/favicon-16x16.png') }}">
+    <link rel="manifest" href="{{ asset('bundles/kasamixbundle/favicon/manifest.json') }}">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-TileImage" content="{{ asset('bundles/kasamixbundle/favicon/ms-icon-144x144.png') }}">
+    <meta name="theme-color" content="#ffffff">
+
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600" rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('bundles/kasamixbundle/css/all.min.css') }}">
+    {% if app.user.acommodation %}
+        {% set promotor_stylesheet_url = web_path~asset('upload/promotor_stylesheets/'~ app.user.acommodation.project.promotor.color~'.css') %}
+        {% if file_exists(promotor_stylesheet_url) %}
+            <link rel="stylesheet" href="{{ asset('upload/promotor_stylesheets/'~app.user.acommodation.project.promotor.color~'.css') }}">
+        {% else %}
+        {% endif %}
+    {% endif %}
+    <!--[if lt IE 9]
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js"></script>
+    <![endif]-->
+    <!--script src="js/jquery-3.2.1.min.js"></script-->
+    {% block defining_javascript %}{% endblock %}
+</head>
+<body class="client-body">
+{% if app.user.acommodation is not null %}
+    {% if app.user %}
+        <div class="container-fluid">
+            <div class="row menu-config">
+                <div class="col-xd-4 col-sm-4 col-md-4">
+                    {% include '@Kasamix/template_includes/client_top_navigation.html.twig' %}
+                    {% block room_name %}{% endblock %}
+                </div>
+
+                <!--div class="pull-right hidden-xs col-sm-{% if app.user.acommodation.status == 1 %}6{%else%}9{%endif%} col-md-{% if app.user.acommodation.status == 1 %}6{%else%}9{%endif%}">
+
+                </div-->
+                <div class="col-xs-6 col-sm-6 col-md-4 pull-right">
+                    {% block selection_choices %}{% endblock %}
+                    {% if app.user.acommodation.status == 1 %}
+                        {% block selection_save %}{% endblock %}
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    {% endif %}
+        {% block pageTitle %}{% endblock %}
+        {% block breadcrumbs %}{% endblock %}
+        {% include '@Kasamix/template_includes/flash_messages.html.twig' %}
+        {% block content %}{% endblock %}
+        {% block fos_user_content %}{% endblock %}
+
+    <script src="{{ asset('bundles/kasamixbundle/js/jquery.js') }}"></script>
+    <script src="{{ asset('bundles/kasamixbundle/js/bootstrap.js') }}"></script>
+    
+    {% block javascript %}{% endblock %}
+{% else %}
+    {% set logOut = path('fos_user_security_logout') %}
+    {% set adminEmail = 'admin@kasamix.com' %}
+    <p style="text-align:center;margin-top: 100px;">{{ 'client.common.no_accommodation'|trans({'%emailAdmin%': adminEmail, '%LogOut%':logOut})|raw }}</p>
+{% endif %}
+</body>
